@@ -439,7 +439,6 @@ double CApp::OptimizePairwise(bool decrease_mu_, int numIter_)
 		JTr.setZero();
 
 		double r;
-		double r2 = 0.0;
 
 		for (int c = 0; c < corres_.size(); c++) {
 			int ii = corres_[c].first;
@@ -461,7 +460,6 @@ double CApp::OptimizePairwise(bool decrease_mu_, int numIter_)
 			r = rpq(0);
 			JTJ += J * J.transpose() * s[c2];
 			JTr += J * r * s[c2];
-			r2 += r * r * s[c2];
 
 			J.setZero();
 			J(2) = -q(0);
@@ -470,7 +468,6 @@ double CApp::OptimizePairwise(bool decrease_mu_, int numIter_)
 			r = rpq(1);
 			JTJ += J * J.transpose() * s[c2];
 			JTr += J * r * s[c2];
-			r2 += r * r * s[c2];
 
 			J.setZero();
 			J(0) = -q(1);
@@ -479,9 +476,6 @@ double CApp::OptimizePairwise(bool decrease_mu_, int numIter_)
 			r = rpq(2);
 			JTJ += J * J.transpose() * s[c2];
 			JTr += J * r * s[c2];
-			r2 += r * r * s[c2];
-
-			r2 += (par * (1.0 - sqrt(s[c2])) * (1.0 - sqrt(s[c2])));
 		}
 
 		Eigen::MatrixXd result(nvariable, 1);
